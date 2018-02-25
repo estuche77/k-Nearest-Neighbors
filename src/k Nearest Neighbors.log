@@ -1,0 +1,41 @@
+Loading data...
+0.2906193733215332 seconds
+
+Training...
+No seconds
+
+Using Manhattan with k = 1
+Accuracy: 24.92
+Elapsed time: 4172.69008564949
+
+Using Chebychev with k = 1
+Accuracy: 9.229999999999999
+Elapsed time: 3521.8694653511047
+
+Using Levenshtein with k = 1
+Accuracy: 27.43
+Elapsed time: 3060.237078666687
+
+Using Manhattan with k = 2
+Accuracy: 24.92
+Elapsed time: 4184.236164331436
+
+Using Chebychev with k = 2
+Accuracy: 9.229999999999999
+Elapsed time: 3629.0838334560394
+
+Using Levenshtein with k = 2
+Accuracy: 27.43
+Elapsed time: 3245.825489282608
+
+Using Manhattan with k = 3
+Accuracy: 23.39
+Elapsed time: 4136.243940353394
+
+Using Chebychev with k = 3
+Accuracy: 9.06
+Elapsed time: 3586.582412481308
+
+Using Levenshtein with k = 3
+Accuracy: 24.34
+Elapsed time: 3072.6337485313416
