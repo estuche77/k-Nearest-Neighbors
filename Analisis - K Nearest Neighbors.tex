@@ -1,0 +1,143 @@
+\documentclass[conference]{IEEEtran}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+
+\selectlanguage{spanish}
+
+\begin{document}
+
+\title{Análisis del algoritmo de los K Vecinos más Cercanos usando diferentes hiper-parámetros}
+
+\author{\IEEEauthorblockN{Jason Latouche}
+\IEEEauthorblockA{Escuela de Ingeniería en Computación\\
+Instituto Tecnológico de Costa Rica\\
+Cartago, Costa Rica\\
+96jaslat@gmail.com}}
+
+\maketitle
+
+\begin{abstract}
+Este documento analiza la exactitud del algoritmo de K Vecinos más Cercanos usando diferentes valores de K y diferentes distancias.
+\end{abstract}
+
+\IEEEpeerreviewmaketitle
+
+
+
+\section{Introducción}
+% no \IEEEPARstart
+Este documento analiza la exactitud del algoritmo de K Vecinos mas Cercanos[1], el cual es un método de clasificación supervisada, usando la combinación de diferentes hiper-parámetros, como el K y las distancias de Chebyshev, Manhattan y Levenshtein, para analizar el comportamiento.
+
+\section{Metodología}
+
+Se pretende comparar la exactitud del algoritmo de K Vecinos mas Cercanos con los diferente hiper-parámetro realizando una serie de pruebas. Esto con el propósito de conocer como los hiper-parámetros alteran el resultado del algoritmo.
+
+Para estas pruebas se usa NumPy, una librería desarrollada para Python de la cual se aprovecha las ventajas que ofrece como el rendimiento de operaciones sobre arreglos multi-dimensionales. El set de datos que se usa es CIFAR-10, el cual contiene 60 mil imágenes de 32x32 píxeles donde 50 mil son usadas para entrenamiento y 10 mil para pruebas.
+
+La exactitud se mide usando la siguiente fórmula:
+
+\[ \textrm{exactitud} = \frac{\textrm{categorías acertadas}}{\textrm{total de pruebas}} * \textrm{100} \]
+
+\subsection{Hiper-parámetro K}
+
+En el algoritmo de K Vecinos más Cercanos la K representa cuantos son vecinos más cercanos que se tomarán en cuenta para decidir la clasificación a la que pertenece la muestra. Este análisis se hará usando K = 1, K = 2 y K = 3
+
+\subsection{Hiper-parámetro de distancias}
+
+Para calcular cuales son los vecinos más cercanos a una muestra es necesario aplicar algoritmos para medir la distancia entre los datos y la muestra.
+
+\subsubsection{Distancia Chebyshev}
+
+La distancia de Chebyshev[2] está dada por la siguiente función:
+
+\[ D\textsubscript{Chebyshev}(x,y) = max(|x_i-y_i|) , i=0,1,...,n \]
+
+\subsubsection{Distancia Manhattan}
+
+La distancia de Manhattan[3] está dada por la siguiente función:
+
+\[ D\textsubscript{Manhattan}(x,y) = \sum(|x_i-y_i|) \]
+
+\subsubsection{Distancia Levenshtein}
+
+Dado dos hileras a, b, la distancia de Levenshtein[4] está dada por la función D\textsubscript{Leven}(|a|,|b|) que se define a continuación:
+
+\[ D\textsubscript{Leven}(i,j) = 
+	\begin{cases}
+        max(i,j) & \textrm{si min(i,j) = 0} \\
+        min(i,j) 
+        \begin{cases}
+            D\textsubscript{Leven}(i-1,j)+1\\
+            D\textsubscript{Leven}(i,j-1)+1\\
+            D\textsubscript{Leven}(i-1,j-1)+1
+        \end{cases}
+        		& \textrm{en otro caso.}
+    \end{cases}	
+\]
+
+\section{Experimentos}
+
+El experimento consiste en cargar los 50 mil datos con sus respectivos resultados y usar las 10 mil fotos para clasificarlas en base a los hiper-parámetros y conocer a cual categoría se aproxima más la muestra. Para lograr esto, 9 pruebas se van a ejecutar:
+
+\begin{itemize}
+\item Distancia Chebyshev con K = 1.
+\item Distancia Manhattan con K = 1.
+\item Distancia Levenshtein con K = 1.
+\item Distancia Chebyshev con K = 2.
+\item Distancia Manhattan con K = 2.
+\item Distancia Levenshtein con K = 2.
+\item Distancia Chebyshev con K = 3.
+\item Distancia Manhattan con K = 3.
+\item Distancia Levenshtein con K = 3.
+\end{itemize}
+
+\section{Resultados}
+
+A continuación se muestra una tabla con los diferentes hiper-parámetros y su respectiva exactitud:
+
+\begin{table}[htbp]
+\caption{Tabla de exactitud}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{K} & \textbf{\textit{Chebyshev}}& \textbf{\textit{Manhattan}}& \textbf{\textit{Levenshtein}} \\
+\hline
+1 & 9.2299 & 24.92 & 27.43 \\
+\hline
+2 & 9.2299 & 24.92 & 27.43 \\
+\hline
+3 & 9.06 & 23.39 & 24.34 \\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\section{Conclusiones}
+
+\begin{itemize}
+\item La similitud de valores en K = 1 y K = 2 puede radicar en que si en K = 2 hay un empate entre dos vecinos, se toma el más cercano a la muestra, haciendo la elección igual a la de K = 1.
+\item Aumentar la cantidad de vecinos que se toman como referencia para decidir a que clase pertenece, no necesariamente significa que se van a obtener mejores resultados.
+\item Para este experimento, el algoritmo de Levenshtein, con K = 1 o K = 2, presentó la mejor exactitud, con el 27.43 de la prueba categorizada con correctamente.
+\end{itemize}
+
+\begin{thebibliography}{1}
+
+
+\bibitem{b1}
+En.wikipedia.org. (2018). k-nearest neighbors algorithm. [Online] Disponible en: https://en.wikipedia.org/wiki/K-nearest\_neighbors\_algorithm [Accesado el 22 Feb. 2018].
+
+\bibitem{b2}
+En.wikipedia.org. (2018). Chebyshev distance. [Online] Disponible en: https://en.wikipedia.org/wiki/Chebyshev\_distance [Accesado el 22 Feb. 2018].
+
+\bibitem{b3}
+En.wikipedia.org. (2018). Taxicab geometry. [Online] Disponible en: https://en.wikipedia.org/wiki/Taxicab\_geometry [Accesado el 22 Feb. 2018].
+
+\bibitem{b4}
+En.wikipedia.org. (2018). Levenshtein distance. [Online] Disponible en: https://en.wikipedia.org/wiki/Levenshtein\_distance [Accesado el 22 Feb. 2018].
+
+\end{thebibliography}
+
+\end{document}
