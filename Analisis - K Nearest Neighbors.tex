@@ -37,6 +37,24 @@ Se pretende comparar la exactitud del algoritmo de K Vecinos mas Cercanos con lo
 
 Para estas pruebas se usa NumPy, una librería desarrollada para Python de la cual se aprovecha las ventajas que ofrece como el rendimiento de operaciones sobre arreglos multi-dimensionales. El set de datos que se usa es CIFAR-10, el cual contiene 60 mil imágenes de 32x32 píxeles donde 50 mil son usadas para entrenamiento y 10 mil para pruebas.
 
+\subsection{Definición del algoritmo kNN [1]}
+
+\subsubsection{Algoritmo de entrenamiento}
+
+Para cada ejemplo $< x , f ( x ) >$, donde $x \in X$ , agregar el ejemplo a la estructura representando el aprendizaje.
+
+\subsubsection{Algoritmo de clasificación}
+
+Dado un ejemplar $x_q$ que debe ser clasificado, sean $x_1, ..., x_k$ los $k$ vecinos más cercanos a $x_q$ en los ejemplos de aprendizaje, regresar
+
+\[ {\hat {f}}(x)\leftarrow argmax_{v\in V}\sum _{i=1}^{k}\delta (v,f(x_{i})) \]
+
+donde {\displaystyle $\delta(a,b)=1{\mbox{ si }}a=b;{\mbox{ y }}0{\mbox{ en cualquier otro caso.}}$}
+
+el valor ${\hat {f}}(x_{q})$ devuelto por el algoritmo como un estimador de ${\displaystyle f(x_{q})}$ es solo el valor más común de ${\displaystyle f}$ entre los ${\displaystyle k}$ vecinos más cercanos a ${\displaystyle x_{q}}$. Si elegimos ${\displaystyle k=1}$; entonces el vecino más cercano a ${\displaystyle x_{i}}$ determina su valor.
+
+\subsection{Exactitud}
+
 La exactitud se mide usando la siguiente fórmula:
 
 \[ \textrm{exactitud} = \frac{\textrm{categorías acertadas}}{\textrm{total de pruebas}} * \textrm{100} \]
